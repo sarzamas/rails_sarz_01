@@ -1,0 +1,378 @@
+https://habrahabr.ru/post/219655/
+https://habrahabr.ru/post/279535/ - терминология тестирования
+
+http://startandroid.ru/ru/9 - установка андроид студии и эмулятора
+cd /Users/arzamascevsergej/Library/Android/sdk/tools/
+./android avd
+./ddms - Проверка соединения DDMS
+
+adb install <appname>.apk  - залить на устройство
+———————————
+
+http://gp-tasks.herokuapp.com/tasks login: gp  PSW: asdfasdf
+
+
+
+RUBY
+——————
+http://rubyinstaller.org/  <- утилиты для установки ruby на Windows
+
+http://goodprogrammer.ru/real-programming-1/lessons/01-about-course
+https://www.youtube.com/playlist?list=PL87kYOx0cUgiOH4sa4ionrDxY2rtjDujq  <— все уроки базового блока
+https://www.youtube.com/playlist?list=PL87kYOx0cUgiOH4sa4ionrDxY2rtjDujq  <— все уроки плейлист
+https://www.youtube.com/playlist?list=PL87kYOx0cUghcn2pCBHzEeMnKx79an8uq  <- все уроки 2-го блока плейлист
+
+
+http://rubyschool.us/  <— 50 видео уроков Ruby
+
+https://www.ruby-toolbox.com/  - поиск по gem library с описанием
+
+http://rubular.com/   <— помощь в расшифровке регулярных выражений
+
+Редактор Sublime
+
+Проверка синтаксиса ruby -c <имя.файла>
+
+choice = gets.encode(‘UTF-8’).chomp  <- ввести строку и обрезать ВК
+names << user_input <- заполнить массив
+puts “Массив: ” + fruits.to_s  <- весь массив в строку
+puts basket[1]  <- вывести только один элемент
+basket.delete(“Melon”)  <- удалить элемент Melon
+basket.delete_at(0)  <- удалить первый элемент
+break <- выход из цикла while
+abort “” <- прекращение программы с текстом
+argument = ARGV[0] <- массив аргументов команды запуска
+ if (Gem.win_platform? and ARGV[0])  <- на виндовс надо кодировку поправить и проверь что есть данные
+ argument = argument.encode(ARGV[0].encoding, “cp1251”).encode(“UTF-8”)
+
+puts “\n #{name}” <- вывод значения переменной name с новой строки
+puts “#{massive.to_s}” <- вывод элементов массива со скобками [] 
+puts “#{massive.join(“, “)}” <- вывод элементов массива с разделителями которые указали
+
+user_input = STDIN.gets.encode(“UTF-8”).chomp.downcase <- запрос ввода данных и перевод в нижний регистр
+
+
+
+def method <- создание метода
+ a=2
+end
+
+for letter in letters do
+ if good_letters.include? letter
+  result += letter + “ ”
+
+
+
+return slovo.split(“”) <- разбить слово на буквы и заполнить буквами массив
+
+require “./methods.rb” <- вызов кода из другого файла где описаны методы
+
+
+
+GC.start  <- инициировать сборщик мусора начать чистить память (в принципе необязательно) 
+
+global scope $a = … <- глобальная переменная видна во всей программе только пока выполняется программа!
+local scope <- локальная переменная видна только внутри тела метода
+class scope <- поля класса (переменные экземпляра) задаются в конструкторе класса чтобы они были доступны в основной программе нужны getters. Поля класса удаляются только при отсутствии ссылок на класс
+
+Работа с сетью
+———————————————-
+require ‘net/http’       <- библиотека запросов на сайты
+require ‘uri’            <- библиотека классов и методов формирования адресов
+require “rexml/document” <- парсер xml
+require “date” <- операции с датами
+
+GEM JSON  <- парсер json
+require “json” <- парсер json
+
+пример чтения файла json
+data = File.read(‘filename’, encoding: “utf-8”)  <- вернуть содержимое файла
+data_hash = JSON.parse(data)  <- создание ассоциативного массива с парами данных
+
+Отформатировать отступы: Ctrl+Alt+L или Cmd+Alt+L
+
+Пример создания запроса xml страницы:
+—————————————————————————————————————
+uri = URI.parse(“адрес с XML страницей”) http://xml.meteoservice.ru/export/gismeteo/point/37.xml
+response = Net::HTTP.get_response(uri)  <— получаем ответ от сервера со страницей
+doc = REXML::Document.new(response.body) <— получаем распарсеный xml документ в переменной   doc
+city_name = URI.unescape(doc.root.elements[‘REPORT/TOWN’].attributes[‘sname’])  <- вычленение из тегов значения города Москва с перекодировкой
+current_forecast = doc.root.elements[‘REPORT/TOWN’].elements.to_a[0]   <- создать массив с одной строкой - первым тегом полностью - это прогноз из всех дочерних тегов от REPORT/TOWN
+min_temp = current_forecast.elements[‘TEMPERATURE’].attributes[‘min’]  <- вычленение атрибута температуры min
+max_temp = current_forecast.elements[‘TEMPERATURE’].attributes[‘max’]  <- max temp
+
+вывод рез-та
+puts city_name
+puts “Температура от #{min_temp} до #{max_temp}”
+
+
+чтобы парсить HTTP страницы - эмулировать браузер
+require mechanize
+agent = Mechanize.new()    <— новый экземпляр виртуального браузера
+chosen = false
+until chosen
+ page = agent.get(“http://www.kinopoisk.ru/top/lists/1/filtr/all/sort/order/perpage/100/page/#{rand(5)}/”)   <— прочитать страницу с URL
+tr_tag = page.search(“//tr[starts-with(@id, ‘tr_’)]”).to_a.sample  <— используя ХPath язык (способ адресовать элементы внутри сложного xml деорева) ищем на HTML странице теги начинающиеся с ‘tr_’ - преобразуем к массиву и выберем случайный элемент
+kino_title = tr_tag.search(“a[@class=‘all’]”).text
+puts “Смотрим?”
+choice = STDIN.gets.chomp
+if choice.downcase == ‘y’
+ chosen = true
+ end
+end
+
+API
+———
+авторизация в приложении Twitter https://apps.twitter.com
+создать ACCESS TOKEN
+GEM 
+Get statuses
+
+
+********************************************************
+Внутренний дебагер подсказка об ошибках внешней среды   <- если вводные данные могут быть неправильными - программа завершится с указанием об конкретной ошибке
+
+begin
+ <строка кода>  <- строка кода, работающая с потенциально кривыми входными данными
+rescue <точное название ошибки без скобок при некорректной работе программы из конца первой строки > => e
+ puts “ошибка ввода тут”
+ abort e.message
+end
+********************************************************
+gem list
+gem instal <name> -v x.x.x.   <— установить определенную версию GEM
+
+Внешний Debugger
+gem install ruby-debug-ide   <— этот дебагер необходим для RubyMine и работает в оболочке RUBYMINE
+другой способ дебоша без RubyMine:
+gem install byebug          <- этот дебагер для Sublime
+ для него надо подключить библиотеку в теле программы
+require ‘byebug’
+и поставить брейк-поинт после подозрительной строчкой кода 
+…
+byebug   <- программа остановится и в консоли можно будет видеть текущие значения и вычислять выражения (не забыть запомнить изменения в файле программы)
+…
+для движения дальше ’n’ - на одну строку дальше; ‘c’ - продолжить выполнение программы 
+************************************************************
+
+ТЕСТИРОВАНИЕ Unit tests:
+————————————
+gem install rspec
+
+require ‘rspec’
+require_relative ‘класс.rb’
+describe ‘класс’ do
+ it ‘название теста - should do ok for KROKODILOV’ do
+  expect( Sklonjator.sklonenie(5, ‘krokodil’, ‘krokodila’, ‘krokodilov’)).to eq ‘krokodilov’
+ end
+end
+
+SQLITE
+———
+gem install sqlite3
+gem list
+gem list <gemname>
+
+require ‘sqlite3’
+
+@@SQLITE_DB_FILE = ‘notepad.sqlite’  <— глобальная переменная класса
+
+INSERT INTO <имя таблицы> (P1,P2,P3) VALUES (‘VAL1’,’VAL2’,’VAL3’);
+
+def save_to_db
+ db = SQLite3::Database.open(@@SQLITE_DB_FILE)
+ db.result_as_hash = true
+ db.execute(
+  “INSERT INTO <имя таблицы> (” +
+   to_db_hash.keys.join(‘,’) +
+   “)” +
+   “ VALUES (“ +
+   (‘?,’*to_db_hash.keys.size).chomp(‘,’) +
+   “)”,
+   to_db_hash.values
+ )
+
+ insert_row_id = db.last_insert_row_id    <— Читаем базу:  последнее запомненное строка
+ db.close
+ return insert_row_id
+end
+
+SELECT * FROM <имя таблицы> WHERE P1 = ‘VALx’ LIMIT 10;
+
+
+Новое приложение:
+rails new <program> -T -B    <- создать новое приложение без опции тестов и библиотек
+
+bundle show byebug  <— показать где стоит конкретный gem
+
+vi Gemfile +  <- упорядочиваем список библиотек
+после этого запустить bundle install
+bundle install --without production    <— не устанавливает production gems to local
+bundle update   <— обновляет gems
+
+
+Start rails server: cd ~/projects/sarzamas1
+rails s   <— стартует сервер на localhost:3000
+
+sarzamas1 arzamascevsergej$ rails s
+=> Booting Puma
+=> Rails 5.0.0.1 application starting in development on http://localhost:3000
+=> Run `rails server -h` for more startup options
+Puma starting in single mode...
+* Version 3.6.0 (ruby 2.2.2-p95), codename: Sleepy Sunday Serenity
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on tcp://localhost:3000
+Use Ctrl-C to stop
+
+Running the Rails server on the cloud IDE:
+type echo $IP or echo $PORT at the command line
+$ cd ~/workspace/hello_app/
+$ rails server -b $IP -p $PORT
+=> Booting Puma
+=> Rails application starting on http://0.0.0.0:8080
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+
+
+Install brew, curl, nodejs, bundler, rails
+ 
+
+You need to install either Homebrew or YUM. I recommend using HomeBrew. To install it enter the following command in terminal.
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
+then use brew install Package_name
+
+If you build your own software and it requires this formula, you'll need to add to your build variables:
+
+    LDFLAGS:  -L/usr/local/opt/curl/lib
+    CPPFLAGS: -I/usr/local/opt/curl/include
+
+
+https://www.youtube.com/watch?v=nLawteLcBc8&list=PLL2P07rQjjo460Z_3zvkA2wWE9Qm2nZ_4 - видео установки RUBY on RAILS и создание проекта
+INSTALL RVM:
+To start using RVM you need to run `source /Users/arzamascevsergej/.rvm/scripts/rvm`
+    in all your open shell windows, in rare cases you need to reopen all shell windows.
+
+== Usage
+
+  rvm [Flags] [Options] Action [Implementation[,Implementation[,...]]
+
+
+Troubleshooting если что-то не ставится:
+rvm get stable --auto-dotfiles
+rvm requirements
+
+brew install libpqxx  - установка PostGres
+gem install pg —with-pg-config=/usr/local/Cellar/postgresql/9.6.1/bin/pg_config
+
+GIT
+———-
+http://git.starline.ru/a21509/sarzamas1
+логин: a21509
+пароль: gfhjkm21509
+
+
+brew install git
+После того как Git установится дайте команду
+export PATH=/usr/local/bin:$PATH
+git --version
+git version 2.10.1
+
+git init создать репо
+git status просмотр репо 
+убрать ненужное через создание в папке репо файла .gitignore в котором установить фильтр (например .idea) 
+
+git add .  <- добавить все НОВЫЕ файлы
+git add .<имя файла> <- добавить конкретный файл
+git commit -m “comment”
+
+git commit -am “version” <— объединение добавления и комита
+
+git log -n <- просмотр истории комиков где  n - число последних комитов для просмотра
+
+git checkout <идентификатор> <- вернуться к состоянию файла на время метки
+
+git checkout master  <- вернуться к самой свежей версии
+
+git remote add origin https://github.com/<username>/<name>.git  <- сделай связь с главным в облаке
+
+git remote show  <-  показать имеющиеся привязки к удаленному репо
+git remote show  origin <-  подсоединиться к удаленному репо и посмотреть ссылки
+
+git push -u origin master  <- первый push необходим с ключем
+git push     <- далее без ключей если в master
+git pull     <- из репо на комп
+
+
+
+HEROKU - deploy web server
+———————————————————————————————
+https://dashboard.heroku.com/apps
+fubar2@mail.ru
+fubar223
+
+
+heroic help
+heroku version
+heroku login
+heroku keys:add		<- add SSH keys
+heroku create		<- create new App
+Creating app... done, ⬢ young-bayou-67697
+https://young-bayou-67697.herokuapp.com/ | https://git.heroku.com/young-bayou-67697.git <-  URL to reach App when running
+git push heroku master		     <— deploy local master App on HEROKU master
+git push heroku yourbranch:master    <— deploy local branch App on HEROKU master
+
+git remote -v
+
+heroku open    <— starts the App on deployment server
+
+heroku rename <new name>     <- App rename and URL accordingly
+('a'..'z').to_a.shuffle[0..7].join    <- Ruby method to make names
+
+————————————————————————————
+
+Toy App 
+————————
+https://www.railstutorial.org/book/toy_app
+
+1. Создаем контроллер
+app/controllers/application_controller.rb
+ class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+
+  def hello
+    render html: "hello, world!"
+  end
+end
+
+2. Перехватываем root route этим контроллером
+config/routes.rb
+ Rails.application.routes.draw do
+  root 'users#index'
+  # root 'application#hello'
+end
+
+3. Создаем БД таблицу ‘User’используя scaffold и мигрируем ее
+rails generate scaffold User name:string email:string
+rails db:migrate  <— update our database with the new data model
+
+4.  Создаем БД таблицу ‘Micropost’используя scaffold и мигрируем ее
+rails generate scaffold Micropost content:text user_id:integer
+
+5. Смотрим рез-т на http://localhost:3000  /users  /microposts 
+rails s
+
+
+6. associations between different data models
+class User < ApplicationRecord
+  has_many :microposts
+end
+
+class Micropost < ApplicationRecord
+  belongs_to :user
+  validates :content, length: { maximum: 140 }
+end
+
+
+
+ https://www.railstutorial.org/solutions
