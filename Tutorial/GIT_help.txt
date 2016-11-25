@@ -1,0 +1,89 @@
+hello world!
+
+http://git.starline.ru/a21509/sarzamas1
+
+
+Command line instructions
+
+Git global setup
+————————————————
+git config --global usepwdr.name "Арзамасцев Сергей"
+git config --global user.email "arzamastsev@starline.ru"
+
+Create a new repository as clone
+———————————————————————
+git clone http://git.starline.ru/a21509/sarzamas1.git
+cd sarzamas1
+touch README.md   <— создать первый пустой файл
+echo "# rails_sarz_01" >> README.md   <— создать не пустой файл с readme
+git add README.md
+git commit -m "add README"
+git push -u origin master
+
+New Existing folder -> Git repository
+—————————————————————————————————
+cd existing_folder
+git init
+git remote add origin http://git.starline.ru/a21509/sarzamas1.git
+git add .
+git commit -m “ ”
+git push -u origin master
+
+git status
+git log
+git push  -> to cloud
+git pull  <- from cloud
+
+create ignore file
+.gitignore   
+
+
+————————-
+new repo:
+————————-
+cd <app root dir>
+git init
+git add .
+git commit -m "Init repo"
+git log -lim10
+
+
+Восстановление
+———————————————
+$ ls app/controllers/
+$ rm -rf app/controllers/  <- удаление папки случайное
+git checkout -f   <— восстановление папки до commit
+
+если после commit - возврат в прошлое
+git log  lim <n>   <- история commit
+git checkout <git log output HASH>  <- возврат в прошлое на дату commit
+git checkout master   <— переход к самой последней версии
+
+GitHUB
+———————
+https://github.com/sarzamas/rails_sarz1/blob/master/
+
+ssh-keygen
+cat ~/.ssh/id_rsa.pub
+ssh-rsa   xxxxxxxxxx  arzamastsev@starline.ru
+
+git remote add origin https://github.com/sarzamas/rails_sarz_01.git <- привязка к удаленному ПУСТОМУ репо
+>> git remote add origin git@bitbucket.org:<username>/hello_app.git
+git remote show
+git remote -v
+git remote show origin
+git push -u origin master
+git fetch origin  <— добавить в свой репо чужие изменения
+git remote rm <name>  <— удалить удаленный репо
+
+
+Branching
+—————————
+git checkout -b <branch name>  <- create brunch
+git branch                     <- look for active brunch
+git commit -a -m “”            <- commit into branch
+git checkout master            <- switch to master as active
+git merge <branch name>        <- merge branch into master
+git branch -d <branch name>    <- delete branch after merge
+git branch -D <branch name>    <- delete branch without merge
+git push

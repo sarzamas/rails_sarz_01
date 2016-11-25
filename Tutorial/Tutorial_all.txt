@@ -363,16 +363,25 @@ rails generate scaffold Micropost content:text user_id:integer
 rails s
 
 
-6. associations between different data models
+6. Active Record associations between different data models
 class User < ApplicationRecord
-  has_many :microposts
+  has_many :microposts           <- один User может иметь много Micropost
 end
 
 class Micropost < ApplicationRecord
-  belongs_to :user
+  belongs_to :user                  <- много записей Micropost могут быть привязаны к одному User
   validates :content, length: { maximum: 140 }
 end
 
+7. Используем console для команд прямого доступа к DB
+rails console  <- start console
+>> exit        <- quit console
+>> Ctrl+D      <- quit console
 
+использование ассоциаций (на примере консоли:
+>> first_user = User.first                  <- SELECT  "users".*     FROM "users"                                       ORDER BY "users"."id"      ASC LIMIT ?  [["LIMIT", 1]]
+>> first_user.microposts                    <- SELECT "microposts".* FROM "microposts" WHERE "microposts"."user_id" = ?  [["user_id", 1]]
+>> micropost = first_user.microposts.first  <- SELECT "microposts".* FROM "microposts" WHERE "microposts"."user_id" = ? ORDER BY "microposts"."id" ASC LIMIT ?  [["user_id", 1], ["LIMIT", 1]]
+>> micropost.user          <- переменная определена из прошлых запросов
 
  https://www.railstutorial.org/solutions
