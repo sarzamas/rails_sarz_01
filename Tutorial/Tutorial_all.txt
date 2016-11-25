@@ -311,8 +311,9 @@ https://dashboard.heroku.com/apps
 fubar2@mail.ru
 fubar223
 
+https://young-bayou-67697.herokuapp.com/   <- location of deployment app
 
-heroic help
+heroku help
 heroku version
 heroku login
 heroku keys:add		<- add SSH keys
@@ -323,6 +324,8 @@ git push heroku master		     <— deploy local master App on HEROKU master
 git push heroku yourbranch:master    <— deploy local branch App on HEROKU master
 
 git remote -v
+
+heroku run rails db:migrate   <— migrate the production database
 
 heroku open    <— starts the App on deployment server
 
@@ -358,6 +361,7 @@ rails db:migrate  <— update our database with the new data model
 
 4.  Создаем БД таблицу ‘Micropost’используя scaffold и мигрируем ее
 rails generate scaffold Micropost content:text user_id:integer
+rails db:migrate
 
 5. Смотрим рез-т на http://localhost:3000  /users  /microposts 
 rails s
@@ -366,11 +370,13 @@ rails s
 6. Active Record associations between different data models
 class User < ApplicationRecord
   has_many :microposts           <- один User может иметь много Micropost
+  validates :name, presence: true   <- поле ввода не может быть пустым
+  validates :email, presence: true   <- поле ввода не может быть пустым
 end
 
 class Micropost < ApplicationRecord
   belongs_to :user                  <- много записей Micropost могут быть привязаны к одному User
-  validates :content, length: { maximum: 140 }
+  validates :content, length: { maximum: 140 }, presence: true   <- поле ввода не может быть пустым и не длиннее 140 символов
 end
 
 7. Используем console для команд прямого доступа к DB
