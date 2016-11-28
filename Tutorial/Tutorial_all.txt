@@ -134,17 +134,17 @@ Get statuses
 
 begin
  <строка кода>  <- строка кода, работающая с потенциально кривыми входными данными
-rescue <точное название ошибки без скобок при некорректной работе программы из конца первой строки > => e
+rescue <точное название ошибки без скобок при некорректной работе программы из конца первой строки> => e
  puts “ошибка ввода тут”
  abort e.message
 end
 ********************************************************
-gem list
+gem list  <— список установленных gems
 gem instal <name> -v x.x.x.   <— установить определенную версию GEM
 
 Внешний Debugger
-gem install ruby-debug-ide   <— этот дебагер необходим для RubyMine и работает в оболочке RUBYMINE
-другой способ дебоша без RubyMine:
+gem install ruby-debug-ide   <— этот дебаггер необходим для RubyMine и работает в оболочке RUBYMINE
+другой способ дебага без RubyMine:
 gem install byebug          <- этот дебагер для Sublime
  для него надо подключить библиотеку в теле программы
 require ‘byebug’
@@ -200,6 +200,17 @@ end
 SELECT * FROM <имя таблицы> WHERE P1 = ‘VALx’ LIMIT 10;
 
 
+RAILS
+——————
+Концепция MVC - model-view-controller
+создание MVC командой ‘rails g’
+- Библиотека scaffold: Создаем MVC БД таблицы ‘User’ и мигрируем ее
+  rails g scaffold User name:string email:string  (не забываем мигрировать ее командой ‘rails db:migrate’)
+- Библиотека контроллеров: Создаем новый контроллер ‘StaticPages’ для статических страниц Home, Help
+  rails g controller StaticPages home help
+
+
+
 Новое приложение:
 rails new <program> -T -B    <- создать новое приложение без опции тестов и библиотек
 
@@ -210,6 +221,13 @@ vi Gemfile +  <- упорядочиваем список библиотек
 bundle install --without production    <— не устанавливает production gems to local
 bundle update   <— обновляет gems
 
+Сокращения в rails командах
+Full command	Shortcut
+$ rails server	$ rails s
+$ rails console	$ rails c
+$ rails generate	$ rails g
+$ rails test	$ rails t
+$ bundle install	$ bundle
 
 Start rails server: cd ~/projects/sarzamas1
 rails s   <— стартует сервер на localhost:3000
@@ -288,7 +306,7 @@ git commit -m “comment”
 
 git commit -am “version” <— объединение добавления и комита
 
-git log -n <- просмотр истории комиков где  n - число последних комитов для просмотра
+git log -n <- просмотр истории комитов где  n - число последних комитов для просмотра
 
 git checkout <идентификатор> <- вернуться к состоянию файла на время метки
 
@@ -332,6 +350,8 @@ heroku open    <— starts the App on deployment server
 heroku rename <new name>     <- App rename and URL accordingly
 ('a'..'z').to_a.shuffle[0..7].join    <- Ruby method to make names
 
+heroku logs   <— look for heroic logs if errors occurred
+
 ————————————————————————————
 
 Toy App 
@@ -355,11 +375,11 @@ config/routes.rb
   # root 'application#hello'
 end
 
-3. Создаем БД таблицу ‘User’используя scaffold и мигрируем ее
+3. Создаем MVC для БД таблицы ‘User’ используя scaffold и мигрируем ее
 rails generate scaffold User name:string email:string
 rails db:migrate  <— update our database with the new data model
 
-4.  Создаем БД таблицу ‘Micropost’используя scaffold и мигрируем ее
+4.  Создаем MVC для БД таблицы ‘Micropost’ используя scaffold и мигрируем ее
 rails generate scaffold Micropost content:text user_id:integer
 rails db:migrate
 
@@ -389,5 +409,10 @@ rails console  <- start console
 >> first_user.microposts                    <- SELECT "microposts".* FROM "microposts" WHERE "microposts"."user_id" = ?  [["user_id", 1]]
 >> micropost = first_user.microposts.first  <- SELECT "microposts".* FROM "microposts" WHERE "microposts"."user_id" = ? ORDER BY "microposts"."id" ASC LIMIT ?  [["user_id", 1], ["LIMIT", 1]]
 >> micropost.user          <- переменная определена из прошлых запросов
+
+8. Создаем MVC контроллер для StaticPages (в git бранче static-pages)
+rails generate controller StaticPages home help
+
+
 
  https://www.railstutorial.org/solutions
