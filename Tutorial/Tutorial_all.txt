@@ -206,9 +206,21 @@ RAILS
 создание MVC командой ‘rails g’
 - Библиотека scaffold: Создаем MVC БД таблицы ‘User’ и мигрируем ее
   rails g scaffold User name:string email:string  (не забываем мигрировать ее командой ‘rails db:migrate’)
+  rails destroy scaffold User   <— удаление MVC целиком со всей требухой…
+
+- Мигрируем БД или откатываем БД
+  rails db:migrate
+  rails db:rollback  <— We can undo a single migration step
+  rails db:migrate VERSION=0  <— To go all the way back to the beginning
+
+
 - Библиотека контроллеров: Создаем новый контроллер ‘StaticPages’ для статических страниц Home, Help
   rails g controller StaticPages home help
+  rails destroy  controller StaticPages home help  <— удаление 
 
+- Библиотека моделей:
+  rails g model User name:string email:string
+  rails destroy model User  <— удаление 
 
 
 Новое приложение:
@@ -411,8 +423,14 @@ rails console  <- start console
 >> micropost.user          <- переменная определена из прошлых запросов
 
 8. Создаем MVC контроллер для StaticPages (в git бранче static-pages)
-rails generate controller StaticPages home help
-
+rails generate controller StaticPages home help   <— CamelCase в команде приводит с созданию имени файла в snake_case
+    автоматом создаются правила для действий home и help и становится доступна страница /static_pages/home 
+config/routes.rb
+ Rails.application.routes.draw do
+  get  'static_pages/home'
+  get  'static_pages/help'
+  root 'application#hello'
+end
 
 
  https://www.railstutorial.org/solutions
