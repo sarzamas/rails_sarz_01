@@ -128,23 +128,26 @@ API
 GEM 
 Get statuses
 
+gem devise    <— authentication
+
+gem uninstall devise   <— удаление gem
 
 ********************************************************
 Внутренний дебагер подсказка об ошибках внешней среды   <- если вводные данные могут быть неправильными - программа завершится с указанием об конкретной ошибке
 
 begin
  <строка кода>  <- строка кода, работающая с потенциально кривыми входными данными
-rescue <точное название ошибки без скобок при некорректной работе программы из конца первой строки > => e
+rescue <точное название ошибки без скобок при некорректной работе программы из конца первой строки> => e
  puts “ошибка ввода тут”
  abort e.message
 end
 ********************************************************
-gem list
+gem list  <— список установленных gems
 gem instal <name> -v x.x.x.   <— установить определенную версию GEM
 
 Внешний Debugger
-gem install ruby-debug-ide   <— этот дебагер необходим для RubyMine и работает в оболочке RUBYMINE
-другой способ дебоша без RubyMine:
+gem install ruby-debug-ide   <— этот дебаггер необходим для RubyMine и работает в оболочке RUBYMINE
+другой способ дебага без RubyMine:
 gem install byebug          <- этот дебагер для Sublime
  для него надо подключить библиотеку в теле программы
 require ‘byebug’
@@ -192,12 +195,35 @@ def save_to_db
    to_db_hash.values
  )
 
- insert_row_id = db.last_insert_row_id    <— Читаем базу:  последнее запомненное строка
+ insert_row_id = db.last_insert_row_id    <— Читаем базу:  последняя запомненная строка
  db.close
  return insert_row_id
 end
 
 SELECT * FROM <имя таблицы> WHERE P1 = ‘VALx’ LIMIT 10;
+
+
+RAILS
+——————
+Концепция MVC - model-view-controller
+создание MVC командой ‘rails g’
+- Библиотека scaffold: Создаем MVC БД таблицы ‘User’ и мигрируем ее
+  rails g scaffold User name:string email:string  (не забываем мигрировать ее командой ‘rails db:migrate’)
+  rails destroy scaffold User   <— удаление MVC целиком со всей требухой…
+
+- Мигрируем БД или откатываем БД
+  rails db:migrate
+  rails db:rollback  <— We can undo a single migration step
+  rails db:migrate VERSION=0  <— To go all the way back to the beginning
+
+
+- Библиотека контроллеров: Создаем новый контроллер ‘StaticPages’ для статических страниц Home, Help
+  rails g controller StaticPages home help
+  rails destroy  controller StaticPages home help  <— удаление 
+
+- Библиотека моделей:
+  rails g model User name:string email:string
+  rails destroy model User  <— удаление 
 
 
 Новое приложение:
@@ -210,6 +236,13 @@ vi Gemfile +  <- упорядочиваем список библиотек
 bundle install --without production    <— не устанавливает production gems to local
 bundle update   <— обновляет gems
 
+Сокращения в rails командах
+Full command	Shortcut
+$ rails server		$ rails s
+$ rails console		$ rails c
+$ rails generate	$ rails g
+$ rails test		$ rails t
+$ bundle install	$ bundle
 
 Start rails server: cd ~/projects/sarzamas1
 rails s   <— стартует сервер на localhost:3000
@@ -235,7 +268,7 @@ $ rails server -b $IP -p $PORT
 => Ctrl-C to shutdown server
 
 
-Install brew, curl, nodejs, bundler, rails
+Install brew, curl, nodejs, rvm, bundler, rails
  
 
 You need to install either Homebrew or YUM. I recommend using HomeBrew. To install it enter the following command in terminal.
@@ -248,8 +281,15 @@ If you build your own software and it requires this formula, you'll need to add 
     CPPFLAGS: -I/usr/local/opt/curl/include
 
 
+rvm list known   <— какие версии доступны
+rvm install ruby 2.2.2
+ruby -v
+rvm list   <- какие версии установлены
+rvm use ruby-2.2.2 —-default  <- сделать по умолчанию конкретную версию
+
+
 https://www.youtube.com/watch?v=nLawteLcBc8&list=PLL2P07rQjjo460Z_3zvkA2wWE9Qm2nZ_4 - видео установки RUBY on RAILS и создание проекта
-INSTALL RVM:
+INSTALL RVM: use script from https://get.rvm.io
 To start using RVM you need to run `source /Users/arzamascevsergej/.rvm/scripts/rvm`
     in all your open shell windows, in rare cases you need to reopen all shell windows.
 
@@ -259,6 +299,9 @@ To start using RVM you need to run `source /Users/arzamascevsergej/.rvm/scripts/
 
 
 Troubleshooting если что-то не ставится:
+
+type rvm | head -n 1     <— должно написать “rvm is a function”
+
 rvm get stable --auto-dotfiles
 rvm requirements
 
@@ -288,7 +331,7 @@ git commit -m “comment”
 
 git commit -am “version” <— объединение добавления и комита
 
-git log -n <- просмотр истории комиков где  n - число последних комитов для просмотра
+git log -n <- просмотр истории комитов где  n - число последних коммитов для просмотра  (если много строк, то в редакторе vi)
 
 git checkout <идентификатор> <- вернуться к состоянию файла на время метки
 
@@ -317,7 +360,7 @@ heroku help
 heroku version
 heroku login
 heroku keys:add		<- add SSH keys
-heroku create		<- create new App
+heroku create <app-name>	<- create new App
 Creating app... done, ⬢ young-bayou-67697
 https://young-bayou-67697.herokuapp.com/ | https://git.heroku.com/young-bayou-67697.git <-  URL to reach App when running
 git push heroku master		     <— deploy local master App on HEROKU master
@@ -332,9 +375,61 @@ heroku open    <— starts the App on deployment server
 heroku rename <new name>     <- App rename and URL accordingly
 ('a'..'z').to_a.shuffle[0..7].join    <- Ruby method to make names
 
-————————————————————————————
+heroku logs   <— look for heroic logs if errors occurred
 
-Toy App 
+
+My Task					Отформатировать отступы: Ctrl+Alt+L или Cmd+Alt+L  похоже только в RubyMine?
+————————————————————————————
+Видео создания приложения на Heroku - “Список дел на Ruby on Rails за 22 минуты” как создать приложение GoodProgrammer.ru
+https://www.youtube.com/watch?v=PL1bnCATOvw&list=PLL2P07rQjjo460Z_3zvkA2wWE9Qm2nZ_4&index=2
+
+cd <dir>
+rails new <app_name> -T -B   <— без тестов, без bundle
+vi gem file   <— gem editor (assets, pg)
+
+bundle exec rails g bootstrap:install static
+bundle exec rails g simple_form:install —-bootstrap
+bundle exec rails g resource task title:string priority:integer completed:boolean
+bundle exec rake db:migrate
+bundle exec rails g controller tasks index new create edit update complete destroy
+
+vi /config/routes.rb
+  root ‘tasks#index’
+  resources :tasks do
+    put :complete, on: :member   <— метод complete для операции ‘task completed’
+  end
+
+vi app/models/task.rb      <— редактируем model
+  def complete!
+    self.completed = true
+    save
+  end
+
+vi /app/views/layouts/application.html.erb       <— редактируем view
+                 <— редактируем шаблон layout приложения
+vi /app/views/tasks/index.html.erb
+  <div class=“col-md-12”>   <— создать колонку - сетка страницы для bootstrap
+    <h1>My Tasks</h1>
+    <%= link_to 'New Task’, new_task_path, class: ‘btn btn-primary’ %>   <— редактируем шаблон страницы
+  </div>
+
+vi /app/controllers/tasks_controller.rb      <— редактируем controller
+
+
+vi /app/controllers/application_controller.rb   <— добавляем простую Authentication
+…
+  http_basic_authenticate_with name: ‘sarz’, password: ‘’
+
+
+rails s
+ber s      <— устаревшая команда запускаем сервер аббревиатура bundle exec rails start
+
+firefox localhost:3000 &   <- открываем в браузере (для Linux)
+
+
+
+
+Toy App  <- tutorial
 ————————
 https://www.railstutorial.org/book/toy_app
 
@@ -355,11 +450,11 @@ config/routes.rb
   # root 'application#hello'
 end
 
-3. Создаем БД таблицу ‘User’используя scaffold и мигрируем ее
+3. Создаем MVC для БД таблицы ‘User’ используя scaffold и мигрируем ее
 rails generate scaffold User name:string email:string
 rails db:migrate  <— update our database with the new data model
 
-4.  Создаем БД таблицу ‘Micropost’используя scaffold и мигрируем ее
+4.  Создаем MVC для БД таблицы ‘Micropost’ используя scaffold и мигрируем ее
 rails generate scaffold Micropost content:text user_id:integer
 rails db:migrate
 
@@ -389,5 +484,18 @@ rails console  <- start console
 >> first_user.microposts                    <- SELECT "microposts".* FROM "microposts" WHERE "microposts"."user_id" = ?  [["user_id", 1]]
 >> micropost = first_user.microposts.first  <- SELECT "microposts".* FROM "microposts" WHERE "microposts"."user_id" = ? ORDER BY "microposts"."id" ASC LIMIT ?  [["user_id", 1], ["LIMIT", 1]]
 >> micropost.user          <- переменная определена из прошлых запросов
+
+8. Создаем MVC контроллер для StaticPages (в git бранче static-pages)
+rails generate controller StaticPages home help   <— CamelCase в команде приводит с созданию имени файла в snake_case
+    автоматом создаются правила для действий home и help и становится доступна страница /static_pages/home 
+config/routes.rb
+ Rails.application.routes.draw do
+  get  'static_pages/home'
+  get  'static_pages/help'
+  root 'application#hello'
+end
+
+9. Тестируем <- все тесты в папке /test
+rails t
 
  https://www.railstutorial.org/solutions
