@@ -235,10 +235,10 @@ bundle update   <— обновляет gems
 
 Сокращения в rails командах
 Full command	Shortcut
-$ rails server	$ rails s
-$ rails console	$ rails c
+$ rails server		$ rails s
+$ rails console		$ rails c
 $ rails generate	$ rails g
-$ rails test	$ rails t
+$ rails test		$ rails t
 $ bundle install	$ bundle
 
 Start rails server: cd ~/projects/sarzamas1
@@ -432,5 +432,7 @@ config/routes.rb
   root 'application#hello'
 end
 
+9. Тестируем <- все тесты в папке /test
+rails t
 
  https://www.railstutorial.org/solutions
