@@ -523,7 +523,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 rails t
 touch app/views/static_pages/about.html.erb   <— создать новый файл
 
-
+https://www.youtube.com/watch?v=N-4NuoivKu0   <— видео как создать login sessions with cookies
 
 
 
