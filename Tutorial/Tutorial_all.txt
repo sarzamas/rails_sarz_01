@@ -527,6 +527,7 @@ https://www.youtube.com/watch?v=N-4NuoivKu0   <— видео как созда�
 
 
 10. Views .erb   Embedded Ruby    <— The HTML structure of a typical web page. HTML5
+title - это имя закладки в браузере
 <% provide(:title, "The Title") %>   <—  <% ... %> executes code inside
 <!DOCTYPE html>
 <html>
