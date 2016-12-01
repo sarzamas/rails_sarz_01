@@ -526,6 +526,17 @@ touch app/views/static_pages/about.html.erb   <— создать новый ф�
 https://www.youtube.com/watch?v=N-4NuoivKu0   <— видео как создать login sessions with cookies
 
 
+10. Views .erb   Embedded Ruby    <— The HTML structure of a typical web page. HTML5
+<% provide(:title, "The Title") %>   <—  <% ... %> executes code inside
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) %> </title>       <— <%= ... %> executes code and inserts the result into the template
+  </head>
+  <body>
+    Contents
+  </body>
+</html>
 
 
 
