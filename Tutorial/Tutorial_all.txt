@@ -487,15 +487,47 @@ rails console  <- start console
 
 8. Создаем MVC контроллер для StaticPages (в git бранче static-pages)
 rails generate controller StaticPages home help   <— CamelCase в команде приводит с созданию имени файла в snake_case
-    автоматом создаются правила для действий home и help и становится доступна страница /static_pages/home 
-config/routes.rb
+*********************************
+УДАЛЕНИЕ MVC
+$ rails generate controller StaticPages home help	This can be undone using:   $ rails destroy  controller StaticPages home help
+$ rails generate model User name:string email:string	This can be undone using:   $ rails destroy model User
+$ rails db:migrate					Undo a single migration step using: $ rails db:rollback	| all the way back to the beginning:, we can use: $ rails db:migrate VERSION=0 or VERSION=<n>
+*********************************
+При создании MVC автоматом создаются правила для действий home и help в  routes.rb создается контроллер и модель и вид и становится доступна страница /static_pages/home 
+config/routes.rb    <— изменяется при создании MVC
  Rails.application.routes.draw do
   get  'static_pages/home'
   get  'static_pages/help'
   root 'application#hello'
 end
 
+app/controllers/static_pages_controller.rb	<— создается при создании MVC
+app/views/static_pages/help.html.erb		<— создается при создании MVC
+
+
+
 9. Тестируем <- все тесты в папке /test
+Unit тесты важны для controller и mdoel  Для View тесты бессмысленны в коде - так как это самый динамичный ресурс 
+Самые важные - это Integration tests
+
+test/controllers/static_pages_controller_test.rb
+require 'test_helper'
+class StaticPagesControllerTest < ActionDispatch::IntegrationTest
+  test "should get home" do
+    get static_pages_home_url
+    assert_response :success
+  end
+
+
+
 rails t
+touch app/views/static_pages/about.html.erb   <— создать новый файл
+
+
+
+
+
+
+
 
  https://www.railstutorial.org/solutions
