@@ -242,6 +242,9 @@ $ rails server		$ rails s
 $ rails console		$ rails c
 $ rails generate	$ rails g
 $ rails test		$ rails t
+$ rails destroy		$ rails d
+$ rails dbconsole	$ rails db
+$ rails runner		$ rails r
 $ bundle install	$ bundle
 
 Start rails server: cd ~/projects/sarzamas1
@@ -269,7 +272,8 @@ $ rails server -b $IP -p $PORT
 
 
 Install brew, curl, nodejs, rvm, bundler, rails
- 
+sudo apt-get update
+sudo apt-get install nodejs
 
 You need to install either Homebrew or YUM. I recommend using HomeBrew. To install it enter the following command in terminal.
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
@@ -345,12 +349,12 @@ git remote show  origin <-  подсоединиться к удаленном�
 
 git push -u origin master  <- первый push необходим с ключем
 git push     <- далее без ключей если в master
-git pull     <- из репо на комп из master
-git pull origin <branch_name> <- из репо на комп из <branch_name>
+git pull     <- from repo master -> to local active branch
+git pull origin <branch_name> <- from repo branch <branch_name> -> to local active branch 
 git merge --abort   <— отменить последний pull в случае конфликта скачивания (далее удалить конфликтующие файлы и повторить pull)
 
 
-iCloud9 WorkSpace		https://c9.io/sarzamas1
+iCloud9 WorkSpace	Ubuntu	https://c9.io/sarzamas1
 ——————————————————
 при создании приложения его клонировать с GITHUB
 install rails: gem install rails -v 5.0.0.1
