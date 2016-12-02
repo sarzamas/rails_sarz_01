@@ -354,14 +354,17 @@ git pull origin <branch_name> <- from repo branch <branch_name> -> to local acti
 git merge --abort   <— отменить последний pull в случае конфликта скачивания (далее удалить конфликтующие файлы и повторить pull)
 
 
-iCloud9 WorkSpace	Ubuntu	https://c9.io/sarzamas1
+iCloud9 WorkSpace	(Ubuntu)	https://c9.io/sarzamas1
 ——————————————————
 при создании приложения его клонировать с GITHUB
 install rails: gem install rails -v 5.0.0.1
-echo $IP 
+bundle
+bundle update
+rails db:migrate
+echo $IP
 echo $PORT
-cd ~/workspace/hello_app/
-rails server -b $IP -p $PORT    <— запускает сервер приложения, чтобы посмотреть его в браузере надо в Cloud9 IDE зайти в SHARE и для строки Application выбрать COPY - в новом окне откроется приложение
+cd ~/workspace/
+rails server -b $IP -p $PORT    <— запускает сервер приложения, чтобы посмотреть его в браузере надо в Cloud9 IDE зайти в SHARE и для строки Application выбрать OPEN - в новом окне откроется приложение
 
 
 HEROKU - deploy web server
@@ -393,6 +396,8 @@ heroku rename <new name>     <- App rename and URL accordingly
 
 heroku logs   <— look for heroic logs if errors occurred
 
+
+TUTORIAL: https://www.railstutorial.org/book
 
 My Task					Отформатировать отступы: Ctrl+Alt+L или Cmd+Alt+L  похоже только в RubyMine?
 ————————————————————————————
