@@ -326,7 +326,8 @@ git status просмотр какие файлы изменены в репо
 убрать ненужное для контроля версий через создание в папке репо файла .gitignore в котором установить фильтр (например .idea) 
 
 git add .  <- добавить все НОВЫЕ файлы
-git add .<имя файла> <- добавить конкретный файл
+git add <имя файла> <- добавить в git конкретный файл
+git add/rm <file>   <- удалить из git конкретный файл
 git commit -m “comment”
 
 git commit -am “version” <— объединение добавления и комита
@@ -346,6 +347,7 @@ git push -u origin master  <- первый push необходим с ключе
 git push     <- далее без ключей если в master
 git pull     <- из репо на комп из master
 git pull origin <branch_name> <- из репо на комп из <branch_name>
+git merge --abort   <— отменить последний pull в случае конфликта скачивания (далее удалить конфликтующие файлы и повторить pull)
 
 
 iCloud9 WorkSpace		https://c9.io/sarzamas1
@@ -355,7 +357,7 @@ install rails: gem install rails -v 5.0.0.1
 echo $IP 
 echo $PORT
 cd ~/workspace/hello_app/
-rails server -b $IP -p $PORT    <— запускает сервер приложения, чтобы посмотреть его в браузере надо в Cloud9 IDE зайти в SARE и для строки Application выбрать COPY - в новом окне откроется приложение
+rails server -b $IP -p $PORT    <— запускает сервер приложения, чтобы посмотреть его в браузере надо в Cloud9 IDE зайти в SHARE и для строки Application выбрать COPY - в новом окне откроется приложение
 
 
 HEROKU - deploy web server
