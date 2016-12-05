@@ -6,8 +6,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get root" do
-    get FILL_IN
-    assert_response FILL_IN
+    get '/'
+    assert_response :success  
+    #get FILL_IN
+    #assert_response FILL_IN
   end
 
   test "should get index" do
