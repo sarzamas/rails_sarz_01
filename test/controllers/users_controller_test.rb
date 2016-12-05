@@ -5,6 +5,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @user = users(:one)
   end
 
+  test "should get root" do
+    get FILL_IN
+    assert_response FILL_IN
+  end
+
   test "should get index" do
     get users_url
     assert_response :success
