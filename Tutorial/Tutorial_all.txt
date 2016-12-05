@@ -361,6 +361,23 @@ git clone https://github.com/sarzamas/rails_sarz_01.git   <— скопиров�
 sudo apt-get update
 sudo apt-get install mc
 
+install rails: 
+gem install rails -v 5.0.0.1
+bundle
+bundle update
+rails db:migrate
+echo $IP
+echo $PORT
+cd ~/workspace/app
+rails server -b $IP -p $PORT    <— запускает сервер приложения, чтобы посмотреть его в браузере надо в Cloud9 IDE зайти в SHARE и для строки Application выбрать OPEN - в новом окне откроется приложение
+
+iCloud9 WorkSpace	(Ubuntu)	https://c9.io/sarzamas1
+——————————————————
+при создании нового  Workspace его НЕ клонировать с GITHUB и выбрать окружение для Tutorial (тогда GIT не будет запущен на корневую папку и можно будет создать несколько приложений в одном Workspace)
+git clone https://github.com/sarzamas/rails_sarz_01.git   <— скопировать с GITHUB теперь в отдельную вложенную папку под отдельным .git
+sudo apt-get update
+sudo apt-get install mc
+
 install rails: gem install rails -v 5.0.0.1
 bundle
 bundle update
